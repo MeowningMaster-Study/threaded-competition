@@ -13,7 +13,7 @@ import java.util.ResourceBundle;
 import java.util.concurrent.atomic.AtomicBoolean;
 import java.util.concurrent.atomic.AtomicInteger;
 
-public class MainController implements Initializable {
+public class AController implements Initializable {
     @FXML
     private Slider slider;
 
@@ -26,8 +26,8 @@ public class MainController implements Initializable {
     @FXML
     private Button startButton;
 
-    private WorkerThread threadInc;
-    private WorkerThread threadDec;
+    private AWorkerThread threadInc;
+    private AWorkerThread threadDec;
 
     final AtomicInteger value = new AtomicInteger(50);
     final AtomicBoolean updatePooled = new AtomicBoolean(false);
@@ -53,10 +53,10 @@ public class MainController implements Initializable {
             updatePooled.set(false);
         });
 
-        threadInc = new WorkerThread(value, 1, updatePooled, fn);
+        threadInc = new AWorkerThread(value, 10, updatePooled, fn);
         threadInc.setPriority(5);
 
-        threadDec = new WorkerThread(value, -1, updatePooled, fn);
+        threadDec = new AWorkerThread(value, 90, updatePooled, fn);
         threadDec.setPriority(5);
     }
 
